@@ -1,3 +1,4 @@
+.DS_store
 src/config.php
 src/vendor/autoload.php
 src/vendor/composer
