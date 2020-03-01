@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Core\App;
+use App\Core\{
+    App,
+    Contrib\Flash
+};
 
 class UsersController
 {
@@ -24,7 +27,8 @@ class UsersController
         ];
 
         if ($User->exists($data['username'])) {
-            // TODO: Some sort of flash message
+            Flash::error('This username is already taken.');
+            return redirect('/register');
         }
 
         $User->register($data);

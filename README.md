@@ -2,9 +2,9 @@
 
 ## Odpalenie projektu
 
-`docker-compose up`
-`docker-compose up -d` - detached, działa w tle
-`docker-compose down` - wyłącza wszystkie kontenery dla projektu
+- `docker-compose up`
+- `docker-compose up -d` - detached, działa w tle
+- `docker-compose down` - wyłącza wszystkie kontenery dla projektu
 
 ## Composer
 

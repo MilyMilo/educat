@@ -5,6 +5,7 @@ Register
 <?php endblock() ?>
 
 <?php startblock('content') ?>
+<?php require('partials/flash.php') ?>
 <div class="row">
   <form class="col-md-8 col-lg-6 mx-auto" method="POST" action="/register">
     <div class="form-group">
