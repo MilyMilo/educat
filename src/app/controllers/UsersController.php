@@ -52,7 +52,7 @@ class UsersController
     public function get_login()
     {
         if (User::is_authenticated()) {
-            return redirect('/dashboard');
+            return redirect('/admin');
         }
 
         return view('login');
@@ -61,7 +61,7 @@ class UsersController
     public function get_register()
     {
         if (User::is_authenticated()) {
-            return redirect('/dashboard');
+            return redirect('/admin');
         }
 
         return view('register');

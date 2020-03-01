@@ -1,7 +1,8 @@
 <?php
 
 $router->get('/^$/iA', 'PagesController@index');
-$router->get('/^dashboard$/iA', 'AdminController@dashboard');
+
+$router->get('/^admin$/iA', 'AdminController@dashboard');
 
 $router->get('/^login$/iA', 'UsersController@get_login');
 $router->post('/^login$/iA', 'UsersController@post_login');

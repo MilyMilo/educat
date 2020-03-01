@@ -11,7 +11,7 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <a class="nav-link" href="/admin">Dashboard</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
