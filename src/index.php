@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\{
+use App\Core\Routing\{
     Request,
     Router
 };

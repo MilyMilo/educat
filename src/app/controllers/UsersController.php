@@ -5,7 +5,8 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Core\{
     App,
-    Contrib\Flash
+    Contrib\Flash,
+    Routing\Request
 };
 
 class UsersController
@@ -22,8 +23,8 @@ class UsersController
         $User = $this->models['User'];
 
         $data = [
-            'username' => $_POST['username'],
-            'password' => $_POST['password'],
+            'username' => Request::data()['username'],
+            'password' => Request::data()['password'],
             'type' => 'USER',
         ];
 
@@ -40,8 +41,8 @@ class UsersController
     {
         $User = $this->models['User'];
         $data = [
-            'username' => $_POST['username'],
-            'password' => $_POST['password'],
+            'username' => Request::data()['username'],
+            'password' => Request::data()['password'],
         ];
 
         $User->login($data);
