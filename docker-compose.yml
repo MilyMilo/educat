@@ -1,0 +1,37 @@
+version: "2"
+
+services:
+  db:
+    image: mariadb:10-bionic
+    environment:
+      MYSQL_DATABASE: educat
+      MYSQL_USER: educat
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - webnet
+
+  pma:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    networks:
+      - webnet
+
+  web:
+    build: .
+    volumes:
+      - ./src:/usr/src/code
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    networks:
+      - webnet
+
+networks:
+  webnet:
