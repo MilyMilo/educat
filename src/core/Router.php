@@ -19,10 +19,19 @@ class Router
      */
     public function direct($uri, $request_type)
     {
-        if (array_key_exists($uri, $this->routes[$request_type])) {
-            return $this->call_action(
-                ...explode('@', $this->routes[$request_type][$uri])
-            );
+        foreach ($this->routes[$request_type] as $pattern => $controller) {
+            $params = [];
+            // I CAN'T EVEN how inefficient this is
+            if (preg_match($pattern, $uri, $params)) {
+                $route = explode('@', $controller);
+                $named_params = array_filter($params, "is_string", ARRAY_FILTER_USE_KEY);
+
+                return $this->call_action(
+                    $route[0], // controller
+                    $route[1], // action
+                    array_values($named_params)
+                );
+            }
         }
 
         Router::display_404($uri);
@@ -43,25 +52,34 @@ class Router
     /**
      * Register a GET request handler
      * 
-     * @param string $uri URI to be handled
+     * Example:
+     * $router->get('/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
+     * Will match /users/1 and pass '1' as the first param to UserController's get_user action 
+     * Using multiple parameter names is supported as long as they don't overlap.
+     * 
+     * @param string $pattern Pattern defining route
      * @param string $controller Name of Controller and it's handling action
      */
-    public function get($uri, $controller)
+    public function get($pattern, $controller)
     {
-        $this->routes['GET'][$uri] = $controller;
+        $this->routes['GET'][$pattern] = $controller;
     }
 
     /**
      * Register a POST request handler
      * 
-     * @param string $uri URI to be handled
+     * Example:
+     * $router->post('/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
+     * Will match /users/1 and pass '1' as the first param to UserController's get_user action 
+     * Using multiple parameter names is supported as long as they don't overlap.
+     *   
+     * @param string $pattern Pattern defining route
      * @param string $controller Name of Controller and it's handling action
      */
-    public function post($uri, $controller)
+    public function post($pattern, $controller)
     {
-        $this->routes['POST'][$uri] = $controller;
+        $this->routes['POST'][$pattern] = $controller;
     }
-
 
     /**
      * Render a 404 Not Found page
@@ -76,7 +94,7 @@ class Router
     /**
      * This is a part of Internal API
      */
-    protected function call_action($controller, $action)
+    protected function call_action($controller, $action, $params)
     {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
@@ -88,6 +106,6 @@ class Router
             );
         }
 
-        return $controller->$action();
+        return $controller->$action(...$params);
     }
 }

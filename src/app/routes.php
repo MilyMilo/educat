@@ -1,13 +1,12 @@
 <?php
 
-$router->get('', 'PagesController@index');
+$router->get('/^$/iA', 'PagesController@index');
+$router->get('/^dashboard$/iA', 'AdminController@dashboard');
 
-$router->get('dashboard', 'AdminController@dashboard');
+$router->get('/^login$/iA', 'UsersController@get_login');
+$router->post('/^login$/iA', 'UsersController@post_login');
 
-$router->get('login', 'UsersController@get_login');
-$router->post('login', 'UsersController@post_login');
+$router->get('/^register$/iA', 'UsersController@get_register');
+$router->post('/^register$/iA', 'UsersController@post_register');
 
-$router->get('register', 'UsersController@get_register');
-$router->post('register', 'UsersController@post_register');
-
-$router->get('logout', 'UsersController@get_logout');
+$router->get('/^logout$/iA', 'UsersController@get_logout');

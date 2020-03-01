@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use App\Core\{
     App,
     Contrib\Flash
@@ -49,9 +50,7 @@ class UsersController
 
     public function get_login()
     {
-        $User = $this->models['User'];
-
-        if ($User::is_authenticated()) {
+        if (User::is_authenticated()) {
             return redirect('/dashboard');
         }
 
@@ -60,9 +59,7 @@ class UsersController
 
     public function get_register()
     {
-        $User = $this->models['User'];
-
-        if ($User::is_authenticated()) {
+        if (User::is_authenticated()) {
             return redirect('/dashboard');
         }
 
