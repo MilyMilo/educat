@@ -1,4 +1,4 @@
-<?php include 'base.php' ?>
+<?php inherit('base.php') ?>
 
 <?php startblock('title') ?>
 404 - Not Found

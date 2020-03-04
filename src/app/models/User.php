@@ -6,6 +6,9 @@ use App\Core\Models\Model;
 
 class User extends Model
 {
+    public static $allowed_types = ['ADMIN', 'USER'];
+
+    public $db_id;
     public $db_username;
     public $db_password;
     public $db_type;
@@ -22,12 +25,13 @@ class User extends Model
         $user = $this->select_where(["username" => $data["username"]])[0];
 
         if (!password_verify($data["password"], $user->password)) {
-            return redirect('/login');
+            return FALSE;
         }
 
         session_start();
         $_SESSION["username"] = $user->username;
         $_SESSION["type"] = $user->type;
+        return TRUE;
     }
 
     public function exists($username)

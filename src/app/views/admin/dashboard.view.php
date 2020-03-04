@@ -1,11 +1,14 @@
 <?php inherit('base.php') ?>
 
 <?php startblock('title') ?>
-Home Page
+Admin Dashboard
 <?php endblock() ?>
 
 <?php startblock('content') ?>
 <?php partial('flash') ?>
 <h1>Welcome to EduCat</h1>
-<h3>Please <a href="/login">Log In</a></h3>
+<h3>Applications:</h3>
+<ul class="list-group">
+    <a href="/admin/users" class="list-group-item">Users</a>
+</ul>
 <?php endblock() ?>

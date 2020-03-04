@@ -1,6 +1,28 @@
 <?php
 
 /**
+ * Include a partial
+ * Use this is template to include for example from flash.php
+ * 
+ * @param string $file path to file relative to partials directory 
+ */
+function partial($file)
+{
+    return include($_SERVER['DOCUMENT_ROOT'] . '/app/views/partials/' . $file . '.php');
+}
+
+/**
+ * Inherit from view
+ * Use this is template to inherit for example from base.php
+ * 
+ * @param string $file path to file relative to views directory 
+ */
+function inherit($file)
+{
+    return include($_SERVER['DOCUMENT_ROOT'] . '/app/views/' . $file);
+}
+
+/**
  * Render view
  * 
  * @param string $name View to render (without path and suffix)

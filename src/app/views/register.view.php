@@ -1,11 +1,11 @@
-<?php include 'base.php' ?>
+<?php inherit('base.php') ?>
 
 <?php startblock('title') ?>
 Register
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php require('partials/flash.php') ?>
+<?php partial('flash') ?>
 <div class="row">
   <form class="col-md-8 col-lg-6 mx-auto" method="POST" action="/register">
     <div class="form-group">

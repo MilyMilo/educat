@@ -45,8 +45,13 @@ class UsersController
             'password' => Request::data()['password'],
         ];
 
-        $User->login($data);
-        return redirect('/');
+        if ($User->login($data)) {
+            Flash::success('You have been logged in!');
+            return redirect('/');
+        }
+
+        Flash::error('Invalid username and/or password!');
+        return redirect('/login');
     }
 
     public function get_login()

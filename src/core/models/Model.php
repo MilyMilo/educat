@@ -93,6 +93,16 @@ abstract class Model
         );
     }
 
+    public function select_one_where($conditions, $conditional = "AND")
+    {
+        $stmt = "SELECT $this->columns FROM $this->table_name " . $this->_build_where_statement($conditions, $conditional) . " LIMIT 1";
+
+        return $this->_fetch(
+            $stmt,
+            $conditions
+        )[0];
+    }
+
     /**
      * Select single record with the id of $id
      * 

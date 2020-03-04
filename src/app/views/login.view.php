@@ -1,10 +1,11 @@
-<?php include 'base.php' ?>
+<?php inherit('base.php') ?>
 
 <?php startblock('title') ?>
 Login
 <?php endblock() ?>
 
 <?php startblock('content') ?>
+<?php partial('flash') ?>
 <div class="row">
   <form class="col-md-8 col-lg-6 mx-auto" method="POST" action="/login">
     <div class="form-group">
