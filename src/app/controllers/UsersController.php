@@ -15,37 +15,34 @@ class UsersController
 
     public function __construct()
     {
-        $this->models['User'] = App::get('factory')->make('User');
+        $this->User = App::get('factory')->make('User');
     }
 
     public function post_register()
     {
-        $User = $this->models['User'];
-
         $data = [
             'username' => Request::data()['username'],
             'password' => Request::data()['password'],
-            'type' => 'USER',
+            'type' => 'STUDENT',
         ];
 
-        if ($User->exists($data['username'])) {
+        if ($this->User->exists($data['username'])) {
             Flash::error('This username is already taken.');
             return redirect('/register');
         }
 
-        $User->register($data);
+        $this->User->register($data);
         return redirect('/login');
     }
 
     public function post_login()
     {
-        $User = $this->models['User'];
         $data = [
             'username' => Request::data()['username'],
             'password' => Request::data()['password'],
         ];
 
-        if ($User->login($data)) {
+        if ($this->User->login($data)) {
             Flash::success('You have been logged in!');
             return redirect('/');
         }
@@ -57,7 +54,8 @@ class UsersController
     public function get_login()
     {
         if (User::is_authenticated()) {
-            return redirect('/admin');
+            Flash::warning("You are already logged-in!");
+            return redirect('/');
         }
 
         return view('login');
@@ -66,7 +64,8 @@ class UsersController
     public function get_register()
     {
         if (User::is_authenticated()) {
-            return redirect('/admin');
+            Flash::warning("You are already logged-in!");
+            return redirect('/');
         }
 
         return view('register');
@@ -76,6 +75,7 @@ class UsersController
     {
         session_start();
         session_destroy();
+        Flash::success("You have been successfully logged-out!");
         return redirect('/');
     }
 }

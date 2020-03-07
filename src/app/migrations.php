@@ -17,6 +17,6 @@ $migrator->run("
         id INT PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        type ENUM('USER', 'ADMIN') NOT NULL
+        type ENUM('ADMIN', 'STUDENT', 'TEACHER', 'EMPLOYEE') NOT NULL
     )
 ");

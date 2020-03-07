@@ -43,16 +43,11 @@ class Flash
     {
         $flashes = $_SESSION['flash'];
         unset($_SESSION['flash']);
-
         return $flashes;
     }
 
     public static function flash($level, $message)
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-
         $new_flash = ["level" => Flash::$error_classes[$level], "message" => $message];
         $_SESSION["flash"][] = $new_flash;
     }

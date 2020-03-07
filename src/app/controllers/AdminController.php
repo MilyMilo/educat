@@ -18,14 +18,14 @@ class AdminController
 
     public function dashboard()
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         return view('admin/dashboard');
     }
 
     // User List View
     public function get_users()
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         $users = $this->User->select_all();
 
         return view('admin/users/list_users', compact('users'));
@@ -34,7 +34,7 @@ class AdminController
     // User Detail View
     public function user_details($id)
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
         return view('admin/users/user_details', compact('user'));
@@ -43,7 +43,7 @@ class AdminController
     // User Update Form
     public function update_user_form($id)
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
         return view('admin/forms/update_user_form', compact('user'));
@@ -53,7 +53,7 @@ class AdminController
     public function create_user_form()
     {
         if (App::get('config')['debug'] !== TRUE) {
-            User::ensure_authenticated();
+            User::ensure_admin();
         }
 
         return view('admin/forms/create_user_form');
@@ -62,7 +62,7 @@ class AdminController
     // User Delete Form
     public function delete_user_form($id)
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
         return view('admin/forms/delete_user_form', compact('user'));
@@ -72,7 +72,7 @@ class AdminController
     public function create_user()
     {
         if (App::get('config')['debug'] !== TRUE) {
-            User::ensure_authenticated();
+            User::ensure_admin();
         }
 
         $data = Request::data();
@@ -98,7 +98,7 @@ class AdminController
     // User Update Endpoint
     public function update_user($id)
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
 
         $data = Request::data();
         $user_data = (array) $this->User->select_by_id($id);
@@ -128,7 +128,7 @@ class AdminController
     // User Delete Endpoint
     public function delete_user($id)
     {
-        User::ensure_authenticated();
+        User::ensure_admin();
         $this->User->delete_by_id($id);
         Flash::success("User has been successfully deleted.");
         return redirect("/admin/users");

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Core\Models\Model;
+use App\Core\Contrib\Flash;
 
 class User extends Model
 {
-    public static $allowed_types = ['ADMIN', 'USER'];
+    public static $allowed_types = ['ADMIN', 'TEACHER', 'STUDENT', 'EMPLOYEE'];
 
     public $db_id;
     public $db_username;
@@ -65,10 +66,24 @@ class User extends Model
         return FALSE;
     }
 
-    public static function ensure_authenticated($redirect_url = '/login')
+    public static function ensure_authenticated()
     {
         if (!User::is_authenticated()) {
-            return redirect($redirect_url);
+            return redirect('/login');
+        }
+    }
+
+
+    public static function ensure_admin()
+    {
+        if (!User::is_authenticated()) {
+            Flash::error("Please log-in first");
+            return redirect('/login');
+        }
+
+        if (!User::is_admin()) {
+            Flash::error("You are not permitted to access that page");
+            return redirect('/');
         }
     }
 }
