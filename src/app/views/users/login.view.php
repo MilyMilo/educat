@@ -1,11 +1,16 @@
-<?php inherit('base.php') ?>
+<?php
+
+use EduCat\Core\Templating\Renderer;
+
+Renderer::inherit('base');
+?>
 
 <?php startblock('title') ?>
 Login
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php partial('flash') ?>
+<?php Renderer::partial('flash') ?>
 <div class="row">
   <form class="col-md-8 col-lg-6 mx-auto" method="POST" action="/login">
     <div class="form-group">

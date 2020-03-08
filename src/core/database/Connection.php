@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Database;
+namespace EduCat\Core\Database;
 
 
 class Connection
@@ -8,7 +8,7 @@ class Connection
     /**
      * Build connection to the database
      * 
-     * @param App\Config $config Config with required credentials
+     * @param EduCat\Config $config Config with required credentials
      * @return \PDO $pdo PDO authenticated to interact with the database
      */
     public static function make($config)

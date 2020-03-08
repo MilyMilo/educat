@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Core\Routing;
+namespace EduCat\Core\Http;
 
+use EduCat\Core\Templating\Renderer;
 
 class Router
 {
@@ -88,7 +89,7 @@ class Router
      */
     public static function display_404($uri)
     {
-        return view('404', compact('uri'));
+        return Renderer::static_render('404', compact('uri'));
     }
 
     /**
@@ -96,7 +97,7 @@ class Router
      */
     protected function call_action($controller, $action, $params)
     {
-        $controller = "App\\Controllers\\{$controller}";
+        $controller = "EduCat\\Controllers\\{$controller}";
         $controller = new $controller;
 
         if (!method_exists($controller, $action)) {

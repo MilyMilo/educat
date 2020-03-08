@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Models;
+namespace EduCat\Core\Models;
 
-use App\Core\App;
+use EduCat\Core\App;
 
 /**
  * Model is the standalone, makeshift QueryBuilder

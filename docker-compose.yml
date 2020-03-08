@@ -2,7 +2,7 @@ version: "2"
 
 services:
   db:
-    image: mariadb:10-bionic
+    image: mariadb:10.4.12-bionic
     environment:
       MYSQL_DATABASE: educat
       MYSQL_USER: educat

@@ -1,5 +1,8 @@
 <?php
-inherit('base.php');
+
+use EduCat\Core\Templating\Renderer;
+
+Renderer::inherit('base');
 ?>
 
 <?php startblock('title') ?>
@@ -7,7 +10,7 @@ Edit settings
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php partial('flash') ?>
+<?php Renderer::partial('flash') ?>
 <div class="text-center">
     <h1>Settings</h1>
 </div>

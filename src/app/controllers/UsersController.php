@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Controllers;
+namespace EduCat\Controllers;
 
-use App\Models\User;
-use App\Core\{
+use EduCat\Models\User;
+use EduCat\Core\{
     App,
     Contrib\Flash,
-    Routing\Request
+    Http\Request
 };
+use EduCat\Core\Http\Controller;
 
-class UsersController
+class UsersController extends Controller
 {
-    protected $models = [];
+
+    public $app_name = 'users';
 
     public function __construct()
     {
@@ -58,7 +60,7 @@ class UsersController
             return redirect('/');
         }
 
-        return view('login');
+        return $this->render('login');
     }
 
     public function get_register()
@@ -68,7 +70,7 @@ class UsersController
             return redirect('/');
         }
 
-        return view('register');
+        return $this->render('register');
     }
 
     public function get_logout()

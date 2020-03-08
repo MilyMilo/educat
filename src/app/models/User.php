@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace EduCat\Models;
 
-use App\Core\Models\Model;
-use App\Core\Contrib\Flash;
+use EduCat\Core\Models\Model;
+use EduCat\Core\Contrib\Flash;
 
 class User extends Model
 {

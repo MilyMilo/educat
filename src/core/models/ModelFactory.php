@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Models;
+namespace EduCat\Core\Models;
 
-use App\Core\App;
+use EduCat\Core\App;
 
 class ModelFactory
 {
@@ -20,13 +20,13 @@ class ModelFactory
     /**
      * Construct the model
      * 
-     * @param string $model - name of the model to construct. (Should exists in the App\Models namespace)
+     * @param string $model - name of the model to construct. (Should exists in the EduCat\Models namespace)
      * @return Model $model_object - specified model object
      */
     public function make($model)
     {
         $model_name = $model;
-        $model = "App\\Models\\{$model}";
+        $model = "EduCat\\Models\\{$model}";
         $table_name = sqlify($model_name);
         $model = new $model($this->pdo, $table_name);
 

@@ -1,11 +1,16 @@
-<?php inherit('base.php') ?>
+<?php
+
+use EduCat\Core\Templating\Renderer;
+
+Renderer::inherit('base');
+?>
 
 <?php startblock('title') ?>
 User Details
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php partial('flash') ?>
+<?php Renderer::partial('flash') ?>
 <div class="card">
     <div class="card-header">
         User Object

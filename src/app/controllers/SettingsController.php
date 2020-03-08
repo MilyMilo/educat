@@ -1,23 +1,33 @@
 <?php
 
-namespace App\Controllers;
+namespace EduCat\Controllers;
 
-use App\Models\User;
-use App\Core\{
-    App,
-    Contrib\Flash,
-    Routing\Request
+use EduCat\Models\{
+    User,
+    Metadata,
+    Contact
 };
 
-class SettingsController
+use EduCat\Core\{
+    App,
+    Contrib\Flash,
+    Http\Request
+};
+
+use EduCat\Core\Http\Controller;
+
+class SettingsController extends Controller
 {
+    public $app_name = 'settings';
+    public Metadata $Metadata;
+    public Contact $Contact;
 
     public function __construct()
     {
         $this->Metadata = App::get('factory')->make('Metadata');
         $this->Contact = App::get('factory')->make('Contact');
 
-        //Metadata
+        // Metadata
         if (!$this->Metadata->exists('title')) {
             $this->Metadata->create_default('title');
         }
@@ -28,7 +38,7 @@ class SettingsController
             $this->Metadata->create_default('keywords');
         }
 
-        //Contact
+        // Contact
         if (!$this->Contact->exists('school_name')) {
             $this->Contact->create_default('school_name');
         }
@@ -49,18 +59,18 @@ class SettingsController
     public function index()
     {
         User::ensure_admin();
-        //Metadata
+        // Metadata
         $title = $this->Metadata->select_where(["_key" => "title"])[0]->_value;
         $description = $this->Metadata->select_where(["_key" => "description"])[0]->_value;
         $keywords = $this->Metadata->select_where(["_key" => "keywords"])[0]->_value;
 
-        //Contact
+        // Contact
         $school_name = $this->Contact->select_where(["_key" => "school_name"])[0]->_value;
         $address = $this->Contact->select_where(["_key" => "address"])[0]->_value;
         $city = $this->Contact->select_where(["_key" => "city"])[0]->_value;
         $postal_code = $this->Contact->select_where(["_key" => "postal_code"])[0]->_value;
         $phone_number = $this->Contact->select_where(["_key" => "phone_number"])[0]->_value;
-        return view('admin/forms/settings/index', compact('title', 'description', 'keywords', 'school_name', 'address', 'city', 'postal_code', 'phone_number'));
+        return $this->render('index', compact('title', 'description', 'keywords', 'school_name', 'address', 'city', 'postal_code', 'phone_number'));
     }
 
     public function get_post_data()

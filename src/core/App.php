@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace EduCat\Core;
 
 
 class App
@@ -29,6 +29,6 @@ class App
         if (array_key_exists($key, static::$container)) {
             return static::$container[$key];
         }
-        throw new \Exception("Couldn't load settings");
+        throw new \Exception("Couldn't load config");
     }
 }

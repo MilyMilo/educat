@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace EduCat\Models;
 
-use App\Core\Models\Model;
+use EduCat\Core\Models\Model;
 
 class Contact extends Model
 {
@@ -32,6 +32,6 @@ class Contact extends Model
 
     public function create_default($key)
     {
-        $this->create(["_key" => $key, "_value" => $this->defaults[$key]]);
+        $this->create(["_key" => $key, "_value" => Contact::$defaults[$key]]);
     }
 }

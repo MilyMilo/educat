@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Controllers;
+namespace EduCat\Controllers;
 
-use App\Core\{
+use EduCat\Core\{
     App,
     Contrib\Flash,
-    Routing\Request
+    Http\Request
 };
-use App\Models\User;
+use EduCat\Core\Http\Controller;
+use EduCat\Models\User;
 
-class AdminController
+class AdminController extends Controller
 {
+    public $app_name = 'admin';
+
     public function __construct()
     {
         $this->User = App::get('factory')->make('User');
@@ -19,7 +22,7 @@ class AdminController
     public function dashboard()
     {
         User::ensure_admin();
-        return view('admin/dashboard');
+        return $this->render('dashboard');
     }
 
     // User List View
@@ -28,7 +31,7 @@ class AdminController
         User::ensure_admin();
         $users = $this->User->select_all();
 
-        return view('admin/users/list_users', compact('users'));
+        return $this->render('users/list_users', compact('users'));
     }
 
     // User Detail View
@@ -37,7 +40,7 @@ class AdminController
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return view('admin/users/user_details', compact('user'));
+        return $this->render('users/user_details', compact('user'));
     }
 
     // User Update Form
@@ -46,7 +49,7 @@ class AdminController
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return view('admin/forms/update_user_form', compact('user'));
+        return $this->render('forms/update_user_form', compact('user'));
     }
 
     // User Create Form
@@ -56,7 +59,7 @@ class AdminController
             User::ensure_admin();
         }
 
-        return view('admin/forms/create_user_form');
+        return $this->render('forms/create_user_form');
     }
 
     // User Delete Form
@@ -65,7 +68,7 @@ class AdminController
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return view('admin/forms/delete_user_form', compact('user'));
+        return $this->render('forms/delete_user_form', compact('user'));
     }
 
     // User Create Endpoint
@@ -76,7 +79,6 @@ class AdminController
         }
 
         $data = Request::data();
-
         if (
             isset($data['username']) &&
             isset($data['password']) &&

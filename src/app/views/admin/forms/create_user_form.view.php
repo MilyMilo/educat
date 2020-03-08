@@ -1,7 +1,9 @@
 <?php
-inherit('base.php');
 
-use App\Models\User;
+use EduCat\Core\Templating\Renderer;
+use EduCat\Models\User;
+
+Renderer::inherit('base')
 ?>
 
 <?php startblock('title') ?>
@@ -9,7 +11,7 @@ Create User Form
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php partial('flash') ?>
+<?php Renderer::partial('flash') ?>
 <div class="row">
     <form class="col-md-8 col-lg-6 mx-auto" method="POST" action="/admin/users/create">
         <div class="form-group">

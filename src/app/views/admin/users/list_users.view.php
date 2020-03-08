@@ -1,11 +1,16 @@
-<?php inherit('base.php') ?>
+<?php
+
+use EduCat\Core\Templating\Renderer;
+
+Renderer::inherit('base');
+?>
 
 <?php startblock('title') ?>
 User List
 <?php endblock() ?>
 
 <?php startblock('content') ?>
-<?php partial('flash') ?>
+<?php Renderer::partial('flash') ?>
 <div class="col">
     <table class="table table-striped table-responsive">
         <thead class="bg-primary text-white">

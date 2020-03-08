@@ -1,4 +1,9 @@
-<?php inherit('base.php') ?>
+<?php
+
+use EduCat\Core\Templating\Renderer;
+
+Renderer::inherit('base');
+?>
 
 <?php startblock('title') ?>
 404 - Not Found

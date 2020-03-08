@@ -1,11 +1,14 @@
 <?php
 
-use App\Core\App;
-use App\Core\Database\{
+require_once('utils.php');
+
+use EduCat\Core\App;
+use EduCat\Core\Database\{
     Connection
 };
-
-use App\Core\Models\ModelFactory;
+use EduCat\Core\Models\ModelFactory;
+use EduCat\Core\Templating\Renderer;
+use EduCat\Views\{UserContextProcessor, MetadataContextProcessor};
 
 App::bind('config', require('config.php'));
 
@@ -13,6 +16,11 @@ App::bind('factory', new ModelFactory(
     Connection::make(App::get('config')['database'])
 ));
 
-session_name(App::get('config')['session_name']);
+// Installed Context Processors
+Renderer::use(
+    new UserContextProcessor(),
+    new MetadataContextProcessor(),
+);
 
-require_once('utils.php');
+session_name(App::get('config')['session_name']);
+session_start();

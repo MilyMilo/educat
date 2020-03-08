@@ -9,7 +9,7 @@
 ## Composer
 
 - Używamy composera do generowania automatycznych importów (Tak aby nie trzeba było require() każdego pliku)
-- W całości polega to na namespace (use App\Core\\(...))
+- W całości polega to na namespace (use EduCat\Core\\(...))
 - Composera trzeba odpalić za każdym razem jak w sumie dodacie nowe pliki z rzeczami które gdzieś używacie
 
 `composer dumpautoload` Będąc w folderze ./src

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Contrib;
+namespace EduCat\Core\Contrib;
 
 /**
  * Flash provides simple flash messaging system.

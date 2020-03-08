@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Contrib\Flash;
+use EduCat\Core\Contrib\Flash;
 
 $flashes = Flash::get();
 

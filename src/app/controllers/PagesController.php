@@ -1,20 +1,15 @@
 <?php
 
-namespace App\Controllers;
+namespace EduCat\Controllers;
 
-use App\Core\App;
+use EduCat\Core\Http\Controller;
 
-class PagesController
+class PagesController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->models['News'] = App::get('factory')->make('News');
-        $this->models['User'] = App::get('factory')->make('User');
-    }
+    public $app_name = "pages";
 
     public function index()
     {
-        return view('index');
+        return $this->render('index');
     }
 }

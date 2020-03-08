@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Routing;
+namespace EduCat\Core\Http;
 
 
 class Request
