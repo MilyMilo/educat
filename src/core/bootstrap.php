@@ -8,7 +8,7 @@ use EduCat\Core\Database\{
 };
 use EduCat\Core\Models\ModelFactory;
 use EduCat\Core\Templating\Renderer;
-use EduCat\Views\{UserContextProcessor, MetadataContextProcessor};
+use EduCat\Views\{UserContextProcessor, MetadataContextProcessor, PathContextProcessor};
 
 App::bind('config', require('config.php'));
 
@@ -20,6 +20,7 @@ App::bind('factory', new ModelFactory(
 Renderer::use(
     new UserContextProcessor(),
     new MetadataContextProcessor(),
+    new PathContextProcessor(),
 );
 
 session_name(App::get('config')['session_name']);

@@ -46,8 +46,11 @@ class UsersController extends Controller
         ];
 
         if ($this->User->login($data)) {
-            Flash::success('You have been logged in!');
-            return redirect('/');
+           $user = $this->User->select_one_where(['username' => $data['username']]);
+           if($user->type === "ADMIN"){
+               return redirect('/admin');
+           }
+           return redirect('/');
         }
 
         Flash::error('Invalid username and/or password!');
