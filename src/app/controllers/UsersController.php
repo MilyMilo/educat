@@ -34,6 +34,7 @@ class UsersController extends Controller
         }
 
         $this->User->register($data);
+        Flash::success('User has been successfuly created! You can now log in.');
         return redirect('/login');
     }
 
@@ -56,7 +57,7 @@ class UsersController extends Controller
     public function get_login()
     {
         if (User::is_authenticated()) {
-            Flash::warning("You are already logged-in!");
+            Flash::warning('You are already logged-in!');
             return redirect('/');
         }
 
