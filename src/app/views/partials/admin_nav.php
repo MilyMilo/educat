@@ -37,19 +37,18 @@
                             Settings
                         </a>
                     </li>
-
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Actions</span>
-                </h6>
-                <?php if($path === "admin/users"): ?>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="plus-circle"></span>
-                            Create user
-                        </a>
-                    </li>
-                </ul>
-                <?php endif; ?>
+                    <?php if ($path === "admin/users") : ?>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Actions</span>
+                        </h6>
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/users/create">
+                                    <span data-feather="plus-circle"></span>
+                                    Create user
+                                </a>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
             </div>
         </nav>

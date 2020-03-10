@@ -36,8 +36,6 @@ User List
             <?php endforeach ?>
         </tbody>
     </table>
-
-    <a href="/admin/users/create" class="btn btn-success">Create User</a>
 </div>
 
 <?php endblock() ?>
