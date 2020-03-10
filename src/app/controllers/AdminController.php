@@ -85,6 +85,30 @@ class AdminController extends Controller
             isset($data['type']) &&
             in_array(strtoupper($data['type']), User::$allowed_types)
         ) {
+            $uppercase = preg_match('@[A-Z]@', $data['password']);
+            $lowercase = preg_match('@[a-z]@', $data['password']);
+            $number    = preg_match('@[0-9]@', $data['password']);
+    
+            if(strlen($data['password']) < 8){
+                Flash::error('Password is too short.');
+                return redirect('/admin/users/create');
+            }
+
+            if(!$uppercase){
+                Flash::error('Password does not contain uppercase.');
+                return redirect('/admin/users/create');
+            }
+    
+            if(!$lowercase){
+                Flash::error('Password does not contain lowercase.');
+                return redirect('/admin/users/create');
+            }
+    
+            if(!$number){
+                Flash::error('Password does not contain number.');
+                return redirect('/admin/users/create');
+            }
+            
             Flash::success('User successfully created');
             $this->User->register($data);
             $new_user = $this->User->select_one_where(['username' => $data['username']]);
