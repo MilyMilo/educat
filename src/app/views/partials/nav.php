@@ -1,7 +1,3 @@
-<?php
-
-use EduCat\Models\User;
-?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" href="/">EduCat</a>
@@ -21,7 +17,7 @@ use EduCat\Models\User;
         <?php endif; ?>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <?php if (!User::is_authenticated()) : ?>
+        <?php if (!$user) : ?>
           <li class="nav-item">
             <a class="nav-link" href="/login">Log in</a>
           </li>
@@ -29,7 +25,7 @@ use EduCat\Models\User;
             <a class="nav-link" href="/register">Register</a>
           </li>
         <?php endif; ?>
-        <?php if (User::is_authenticated()) : ?>
+        <?php if ($user): ?>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Log out</a>
           </li>
