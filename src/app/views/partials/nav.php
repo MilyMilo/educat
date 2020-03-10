@@ -1,3 +1,7 @@
+<?php
+
+use EduCat\Models\User;
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" href="/">EduCat</a>
@@ -10,23 +14,26 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/admin">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/users">Users</a>
-        </li>
+        <?php if ($user->type === "ADMIN") : ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Dashboard</a>
+          </li>
+        <?php endif; ?>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
+        <?php if (!User::is_authenticated()) : ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Log in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        <?php endif; ?>
+        <?php if (User::is_authenticated()) : ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log out</a>
+          </li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>

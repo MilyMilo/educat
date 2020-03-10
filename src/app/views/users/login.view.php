@@ -22,7 +22,7 @@ Login
       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
     </div>
 
-    <button type="submit" class="btn btn-success btn-block">Login</button>
+    <button type="submit" class="btn btn-success btn-block">Log in</button>
   </form>
 </div>
 <?php endblock() ?>
