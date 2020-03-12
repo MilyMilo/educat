@@ -1,6 +1,6 @@
 <?php
 
-namespace EduCat\Controllers;
+namespace EduCat\Controllers\Admin;
 
 use EduCat\Core\{
     App,
@@ -12,9 +12,7 @@ use EduCat\Models\User;
 
 class AdminController extends Controller
 {
-    public $app_name = 'admin';
-
-    public function __construct()
+    public function init()
     {
         $this->User = App::get('factory')->make('User');
     }
@@ -22,7 +20,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         User::ensure_admin();
-        return $this->render('dashboard');
+        return $this->render('dashboard/dashboard');
     }
 
     // User List View
@@ -31,7 +29,7 @@ class AdminController extends Controller
         User::ensure_admin();
         $users = $this->User->select_all();
 
-        return $this->render('users/list_users', compact('users'));
+        return $this->render('dashboard/list_users', compact('users'));
     }
 
     // User Detail View
@@ -40,7 +38,7 @@ class AdminController extends Controller
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return $this->render('users/user_details', compact('user'));
+        return $this->render('dashboard/user_details', compact('user'));
     }
 
     // User Update Form
@@ -49,7 +47,7 @@ class AdminController extends Controller
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return $this->render('forms/update_user_form', compact('user'));
+        return $this->render('dashboard/update_user_form', compact('user'));
     }
 
     // User Create Form
@@ -59,7 +57,7 @@ class AdminController extends Controller
             User::ensure_admin();
         }
 
-        return $this->render('forms/create_user_form');
+        return $this->render('dashboard/create_user_form');
     }
 
     // User Delete Form
@@ -68,7 +66,7 @@ class AdminController extends Controller
         User::ensure_admin();
         $user = $this->User->select_by_id($id);
 
-        return $this->render('forms/delete_user_form', compact('user'));
+        return $this->render('dashboard/delete_user_form', compact('user'));
     }
 
     // User Create Endpoint
@@ -88,27 +86,27 @@ class AdminController extends Controller
             $uppercase = preg_match('@[A-Z]@', $data['password']);
             $lowercase = preg_match('@[a-z]@', $data['password']);
             $number    = preg_match('@[0-9]@', $data['password']);
-    
-            if(strlen($data['password']) < 8){
+
+            if (strlen($data['password']) < 8) {
                 Flash::error('Password is too short.');
                 return redirect('/admin/users/create');
             }
 
-            if(!$uppercase){
+            if (!$uppercase) {
                 Flash::error('Password does not contain uppercase.');
                 return redirect('/admin/users/create');
             }
-    
-            if(!$lowercase){
+
+            if (!$lowercase) {
                 Flash::error('Password does not contain lowercase.');
                 return redirect('/admin/users/create');
             }
-    
-            if(!$number){
+
+            if (!$number) {
                 Flash::error('Password does not contain number.');
                 return redirect('/admin/users/create');
             }
-            
+
             Flash::success('User successfully created');
             $this->User->register($data);
             $new_user = $this->User->select_one_where(['username' => $data['username']]);

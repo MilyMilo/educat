@@ -23,21 +23,21 @@ class Renderer
     {
         $renderer = new static('');
         extract(array_merge($renderer->_build_dynamic_context(), $renderer->static_context));
-        return include_once($_SERVER['DOCUMENT_ROOT'] . '/app/views/' . trim($file, "/") . ".php");
+        return require($_SERVER['DOCUMENT_ROOT'] . '/views/layouts/' . trim($file, "/") . ".php");
     }
 
     public static function partial($file)
     {
         $renderer = new static('');
         extract(array_merge($renderer->_build_dynamic_context(), $renderer->static_context));
-        return include_once($_SERVER['DOCUMENT_ROOT'] . '/app/views/partials/' . trim($file, "/") . ".php");
+        return include_once($_SERVER['DOCUMENT_ROOT'] . '/views/partials/' . trim($file, "/") . ".php");
     }
 
     public static function static_render($file, $data = [])
     {
         $renderer = new static('');
         extract(array_merge($renderer->_build_dynamic_context(), $renderer->static_context, $data));
-        return require($_SERVER['DOCUMENT_ROOT'] . '/app/views/' . trim($file, "/") . ".view.php");
+        return require($_SERVER['DOCUMENT_ROOT'] . '/views/' . trim($file, "/") . ".view.php");
     }
 
     public function render($name, $data = [])

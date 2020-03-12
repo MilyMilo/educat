@@ -1,6 +1,6 @@
 <?php
 
-namespace EduCat\Controllers;
+namespace EduCat\Controllers\Admin;
 
 use EduCat\Models\User;
 use EduCat\Core\{
@@ -12,10 +12,7 @@ use EduCat\Core\Http\Controller;
 
 class UsersController extends Controller
 {
-
-    public $app_name = 'users';
-
-    public function __construct()
+    public function init()
     {
         $this->User = App::get('factory')->make('User');
     }
@@ -34,7 +31,7 @@ class UsersController extends Controller
         }
 
         $this->User->register($data);
-        Flash::success('User has been successfuly created! You can now log in.');
+        Flash::success('User has been successfully created! You can now log in.');
         return redirect('/login');
     }
 
@@ -46,11 +43,11 @@ class UsersController extends Controller
         ];
 
         if ($this->User->login($data)) {
-           $user = $this->User->select_one_where(['username' => $data['username']]);
-           if($user->type === "ADMIN"){
-               return redirect('/admin');
-           }
-           return redirect('/');
+            $user = $this->User->select_one_where(['username' => $data['username']]);
+            if ($user->type === "ADMIN") {
+                return redirect('/admin');
+            }
+            return redirect('/');
         }
 
         Flash::error('Invalid username and/or password!');
@@ -64,7 +61,7 @@ class UsersController extends Controller
             return redirect('/');
         }
 
-        return $this->render('login');
+        return $this->render('users/login');
     }
 
     public function get_register()
@@ -74,7 +71,7 @@ class UsersController extends Controller
             return redirect('/');
         }
 
-        return $this->render('register');
+        return $this->render('users/register');
     }
 
     public function get_logout()

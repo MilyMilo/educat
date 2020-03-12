@@ -1,6 +1,6 @@
 <?php
 
-namespace EduCat\Controllers;
+namespace EduCat\Controllers\Admin;
 
 use EduCat\Models\{
     User,
@@ -18,11 +18,10 @@ use EduCat\Core\Http\Controller;
 
 class SettingsController extends Controller
 {
-    public $app_name = 'settings';
     public Metadata $Metadata;
     public Contact $Contact;
 
-    public function __construct()
+    public function init()
     {
         $this->Metadata = App::get('factory')->make('Metadata');
         $this->Contact = App::get('factory')->make('Contact');
@@ -70,7 +69,7 @@ class SettingsController extends Controller
         $city = $this->Contact->select_where(["_key" => "city"])[0]->_value;
         $postal_code = $this->Contact->select_where(["_key" => "postal_code"])[0]->_value;
         $phone_number = $this->Contact->select_where(["_key" => "phone_number"])[0]->_value;
-        return $this->render('index', compact('title', 'description', 'keywords', 'school_name', 'address', 'city', 'postal_code', 'phone_number'));
+        return $this->render('settings/settings', compact('title', 'description', 'keywords', 'school_name', 'address', 'city', 'postal_code', 'phone_number'));
     }
 
     public function get_post_data()

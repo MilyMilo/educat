@@ -2,7 +2,7 @@
 
 use EduCat\Core\Templating\Renderer;
 
-Renderer::inherit('base');
+Renderer::inherit('main');
 ?>
 
 <?php startblock('title') ?>

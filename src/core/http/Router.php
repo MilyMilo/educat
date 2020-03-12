@@ -2,6 +2,7 @@
 
 namespace EduCat\Core\Http;
 
+use EduCat\Core\App;
 use EduCat\Core\Templating\Renderer;
 
 class Router
@@ -20,18 +21,21 @@ class Router
      */
     public function direct($uri, $request_type)
     {
-        foreach ($this->routes[$request_type] as $pattern => $controller) {
-            $params = [];
-            // I CAN'T EVEN how inefficient this is
-            if (preg_match($pattern, $uri, $params)) {
-                $route = explode('@', $controller);
-                $named_params = array_filter($params, "is_string", ARRAY_FILTER_USE_KEY);
+        // I CAN'T EVEN how inefficient this is
+        foreach ($this->routes[$request_type] as $app_name => $definition) {
+            foreach ($definition as $pattern => $controller) {
+                $params = [];
+                if (preg_match($pattern, $uri, $params)) {
+                    $route = explode('@', $controller);
+                    $named_params = array_filter($params, "is_string", ARRAY_FILTER_USE_KEY);
 
-                return $this->call_action(
-                    $route[0], // controller
-                    $route[1], // action
-                    array_values($named_params)
-                );
+                    return $this->call_action(
+                        $app_name,
+                        $route[0], // controller
+                        $route[1], // action
+                        array_values($named_params)
+                    );
+                }
             }
         }
 
@@ -43,10 +47,14 @@ class Router
      * 
      * @param string $routes_file Path to the routes file
      */
-    public static function load($routes_file)
+    public static function load()
     {
         $router = new static;
-        require($routes_file);
+        foreach (App::get('apps') as $app_name) {
+            $routes_file = $_SERVER['DOCUMENT_ROOT'] . '/apps/' . $app_name . '/routes.php';
+            require($routes_file);
+        }
+
         return $router;
     }
 
@@ -54,32 +62,40 @@ class Router
      * Register a GET request handler
      * 
      * Example:
-     * $router->get('/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
+     * $router->get('users', '/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
      * Will match /users/1 and pass '1' as the first param to UserController's get_user action 
-     * Using multiple parameter names is supported as long as they don't overlap.
+     * with 'users' as the application name.
      * 
+     * Using multiple parameter names is supported as long as they don't overlap.
+     * Numeric parameter names are not supported and will break the app in unimaginable ways.
+     * 
+     * @param string $app Application's name (used to resolve its directory)
      * @param string $pattern Pattern defining route
      * @param string $controller Name of Controller and it's handling action
      */
-    public function get($pattern, $controller)
+    public function get($app, $pattern, $controller)
     {
-        $this->routes['GET'][$pattern] = $controller;
+        $this->routes['GET'][$app][$pattern] = $controller;
     }
 
     /**
      * Register a POST request handler
      * 
      * Example:
-     * $router->post('/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
+     * $router->post('users', '/^users\/(?P<id>[-\w]+)$/iA', 'UsersController@get_user');
      * Will match /users/1 and pass '1' as the first param to UserController's get_user action 
+     * with 'users' as the application name.
+     * 
      * Using multiple parameter names is supported as long as they don't overlap.
+     * Numeric parameter names are not supported and will break the app in unimaginable ways.
      *   
+     * @param string $app Application's name (used to resolve its directory)
      * @param string $pattern Pattern defining route
      * @param string $controller Name of Controller and it's handling action
      */
-    public function post($pattern, $controller)
+    public function post($app, $pattern, $controller)
     {
-        $this->routes['POST'][$pattern] = $controller;
+        $this->routes['POST'][$app][$pattern] = $controller;
     }
 
     /**
@@ -95,10 +111,11 @@ class Router
     /**
      * This is a part of Internal API
      */
-    protected function call_action($controller, $action, $params)
+    protected function call_action($app_name, $controller, $action, $params)
     {
-        $controller = "EduCat\\Controllers\\{$controller}";
-        $controller = new $controller;
+        $ns_name = ucfirst($app_name);
+        $controller = "EduCat\\Controllers\\$ns_name\\{$controller}";
+        $controller = new $controller($app_name);
 
         if (!method_exists($controller, $action)) {
             $controller_name = get_class($controller);

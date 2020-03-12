@@ -3,7 +3,7 @@
 use EduCat\Core\Templating\Renderer;
 use EduCat\Models\User;
 
-Renderer::inherit('admin_base')
+Renderer::inherit('admin')
 ?>
 
 <?php startblock('title') ?>

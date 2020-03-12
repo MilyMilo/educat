@@ -8,16 +8,20 @@ abstract class Controller
 {
     public $app_name;
 
-    public function __construct()
+    public function __construct($app_name)
     {
-        if (!$this->app_name) {
-            throw new \Exception("Classes extending Controller need to define \$app_name.");
-        }
+        $this->app_name = $app_name;
+        $this->init();
     }
 
     public function render($view, $data = [])
     {
-        $renderer = new Renderer("app/views/$this->app_name");
+        $renderer = new Renderer("apps/$this->app_name/views");
         return $renderer->render($view, $data);
+    }
+
+    protected function init()
+    {
+        return; // Stub definition to satisfy linter
     }
 }

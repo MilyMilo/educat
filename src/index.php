@@ -7,6 +7,7 @@ use EduCat\Core\Http\{
 
 require('vendor/autoload.php');
 require('vendor/ti.php');
+require('settings.php');
 require('core/bootstrap.php');
 
-Router::load('app/routes.php')->direct(Request::uri(), Request::method());
+Router::load()->direct(Request::uri(), Request::method());
