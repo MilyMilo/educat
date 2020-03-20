@@ -11,6 +11,9 @@ class User extends Model
 
     public $db_id;
     public $db_username;
+    public $db_first_name;
+    public $db_last_name;
+    public $db_email;
     public $db_password;
     public $db_type;
 
@@ -30,14 +33,17 @@ class User extends Model
         }
 
         session_start();
+        $_SESSION["id"] = $user->id;
+        $_SESSION["first_name"] = $user->first_name;
+        $_SESSION["last_name"] = $user->last_name;
+        $_SESSION["email"] = $user->email;
         $_SESSION["username"] = $user->username;
         $_SESSION["type"] = $user->type;
         return TRUE;
     }
-
-    public function exists($username)
+    public function exists($key, $name)
     {
-        $user = $this->select_where(["username" => $username]);
+        $user = $this->select_where([$key => $name]);
 
         if (count($user) === 0) {
             return FALSE;

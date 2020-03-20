@@ -15,17 +15,23 @@ User List
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="bg-primary text-white">
-                <tr>
-                    <th class="text-left">Username</th>
-                    <th class="text-left">Password</th>
+                <tr class="text-letft">
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>E-mail</th>
+                    <th>Type</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody class="table-hover">
                 <?php foreach ($users as $user) : ?>
-                    <tr>
-                        <td class="text-left align-middle"><?= $user->username ?></td>
-                        <td class="text-left align-middle"><?= $user->password ?></td>
+                    <tr class="text-left">
+                        <td class="align-middle"><?= $user->username ?></td>
+                        <td class="align-middle"><?= $user->first_name ?></td>
+                        <td class="align-middle"><?= $user->last_name ?></td>
+                        <td class="align-middle"><?= $user->email ?></td>
+                        <td class="align-middle"><?= $user->type ?></td>
                         <td class="text-center">
                             <div class="btn-group ">
                                 <a href="/admin/users/<?= $user->id ?>" class="btn btn-sm btn-info">View</a>

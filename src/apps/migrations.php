@@ -16,8 +16,18 @@ $migrator->run("
     CREATE TABLE IF NOT EXISTS users (
         id INT PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(255) NOT NULL,
+        first_name VARCHAR(255) NOT NULL,
+        last_name VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
         type ENUM('ADMIN', 'STUDENT', 'TEACHER', 'EMPLOYEE') NOT NULL
+    );
+");
+$migrator->run("
+    CREATE TABLE IF NOT EXISTS recovery_tokens (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        uid VARCHAR(255),
+        token VARCHAR(255) NOT NULL UNIQUE
     );
 ");
 

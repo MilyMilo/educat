@@ -4,7 +4,6 @@ namespace EduCat\Core\Http;
 
 use EduCat\Core\App;
 use EduCat\Core\Templating\Renderer;
-
 class Router
 {
     protected $routes = [

@@ -20,6 +20,7 @@ Login
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+      <a href="/password_reset" class="form-text text-muted">Forgot your password?</a>
     </div>
 
     <button type="submit" class="btn btn-success btn-block">Log in</button>

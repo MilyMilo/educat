@@ -13,7 +13,7 @@ use EduCat\Core\Templating\Renderer;
   <title><?= $title ?> | Educat</title>
   <meta name="description" content="<?= $description ?>">
   <meta name="keywords" content="<?= $keywords ?>">
-
+  <link rel="stylesheet" href="/static/css/user.css">
   <?php Renderer::partial('styles') ?>
   <?php startblock('styles') ?><?php endblock() ?>
 </head>

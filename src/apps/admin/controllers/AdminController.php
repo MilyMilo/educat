@@ -80,6 +80,9 @@ class AdminController extends Controller
         if (
             isset($data['username']) &&
             isset($data['password']) &&
+            isset($data['first_name']) &&
+            isset($data['last_name']) &&
+            isset($data['email']) &&
             isset($data['type']) &&
             in_array(strtoupper($data['type']), User::$allowed_types)
         ) {
@@ -104,6 +107,15 @@ class AdminController extends Controller
 
             if (!$number) {
                 Flash::error('Password does not contain number.');
+                return redirect('/admin/users/create');
+            }
+            if ($this->User->exists("username", $data['username'])) {
+                Flash::error('This username is already taken.');
+                return redirect('/admin/users/create');
+            }
+
+            if ($this->User->exists("email", $data['email'])) {
+                Flash::error('This email is already taken.');
                 return redirect('/admin/users/create');
             }
 

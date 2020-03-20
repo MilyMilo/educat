@@ -21,13 +21,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/login">Log in</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
         <?php endif; ?>
-        <?php if ($user): ?>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log out</a>
+        <?php if ($user) : ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item text-primary" href="/profile">Visit my profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-danger" href="/logout">Log out</a>
+            </div>
           </li>
         <?php endif; ?>
       </ul>

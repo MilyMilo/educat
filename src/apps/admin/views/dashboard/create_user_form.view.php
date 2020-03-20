@@ -19,8 +19,28 @@ Create User Form
             <input type="text" class="form-control" id="username" name="username" placeholder="Username">
         </div>
         <div class="form-group">
+            <label for="first_name">First name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="username@example.com">
+        </div>
+        <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <p class="text-muted">Password must contain at least:</p>
+            <ul class="text-muted">
+                <li>8 characters</li>
+                <li>1 uppercase letter</li>
+                <li>1 lowercase letter</li>
+                <li>1 number</li>
+                <li>1 special character (#$%&'()*+,-./:;<=>?@[\]^_`{|}~")</li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="type">Type</label>

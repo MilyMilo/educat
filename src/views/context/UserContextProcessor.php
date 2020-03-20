@@ -16,6 +16,7 @@ class UserContextProcessor implements ContextProcessor
         }
 
         $user = new \stdClass;
+        $user->id = $_SESSION['id'];
         $user->username = $_SESSION['username'];
         $user->type = $_SESSION['type'];
 
